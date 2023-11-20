@@ -1,0 +1,64 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+header{
+    background-image: url('/bookingApp-calendar/img/bg-calendar3.jpg');
+    display: block;
+    padding: 2%;
+}
+
+main{
+    background-color: #f7f7e3;
+}
+
+h1{
+    text-align: right;
+    justify-content: end;
+    font-family: 'Abril Fatface', serif;
+}
+
+.currentDay{
+    justify-content: end;
+    text-align: right;
+}
+
+
+.d-flex{
+    flex-wrap: wrap;
+    font-family: 'Playfair Display', serif;
+    font-size: smaller;
+    justify-content: center;
+    text-align: center;
+    padding: 2%;
+    border-bottom: 1px solid black;
+}
+
+.row{
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+
+#inputEvent{
+    width: 80%;
+    justify-content: center;
+}
+
+
+.time-past{
+    border: 1px solid red;
+}
+
+.allowedTime{
+    background-color: #f6f6df;
+}
+
+.submitted{
+    border: green;
+}
+
