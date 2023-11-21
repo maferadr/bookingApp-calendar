@@ -40,11 +40,19 @@ h1{
     width: 100%;
     text-align: center;
     justify-content: center;
-    padding-top: 2%;
+    padding-top: 3%;
     padding-bottom: 2%;
 }
 
-#inputEvent{
+.col-auto{
+    width: 80%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    padding: 1%;
+}
+
+.form-control{
     width: 80%;
     justify-content: center;
 }
