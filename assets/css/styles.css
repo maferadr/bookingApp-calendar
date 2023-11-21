@@ -40,7 +40,7 @@ h1{
     width: 100%;
     text-align: center;
     justify-content: center;
-    padding-top: 3%;
+    padding-top: 2%;
     padding-bottom: 2%;
 }
 
@@ -59,14 +59,21 @@ h1{
 
 
 .time-past{
-    border: 1px solid red;
+    border: 1px solid #6d3c3c;
 }
 
 .allowedTime{
     background-color: #f6f6df;
 }
 
+.allowedTime:hover{
+    box-shadow: 5px 8px 15px #a98e60d1;
+}
+
 .submitted{
     border: green;
 }
 
+.row .col-auto:nth-child(even){
+    border-bottom: 1px solid rgba(0, 0, 0, 0.244);
+}
