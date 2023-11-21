@@ -25,11 +25,55 @@ var officeHours = [
 var timeDisplayed = ()=>{
 
     //For each hour displayed, grab a time value and convert into a format.
+
    for(var i = 0; i < officeHours.length; i++){
         //Iterate each array index.
         var eachTime = officeHours[i];
         //get current time
         var currentTime = dayjs().hour();
+
+   for(var i = 0; i <= officeHours.length; i++){
+        //Iterate each array index.
+        var eachTime = officeHours[i];
+        console.log(eachTime);
+        //get current time
+        var currentTime = dayjs().startOf('hour');
+
+        var formContainer = $('.row'); //parent
+        var eachContainer = $('.col-auto');
+        var timeBooked = $('#time');
+        var inputEvent = $('#inputEvent');
+        var btnSave = $('#button');
+
+        var arrayElements = [
+            timeBooked,
+            inputEvent,
+            btnSave
+        ]
+
+        var hourForm = $('<input type="text">');
+        hourForm.addClass('form-control');
+
+        var btn = $('<button type="button">')
+        btn.addClass('btn btn-success');
+
+        
+        var labelHour = $('<label for="static">');
+        labelHour.addClass('col-form-label');
+        labelHour.attr('id', eachTime.time) //Add an ID
+
+        // console.log(currentTime)
+    
+        //Reassign the parent elements.
+        formContainer.append(eachContainer);
+        formContainer.append(arrayElements);
+
+        inputEvent.append(hourForm);
+        labelHour.text(eachTime.time); //It's supposed to iterate each time displayed.
+        timeBooked.append(labelHour);
+        btn.text('Save');
+        btnSave.append(btn);
+
 
         var container = $('.row').addClass('g-3');
         var formContainer = $('<div class="col-auto">'); //parent
