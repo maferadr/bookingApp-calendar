@@ -1,77 +1,72 @@
-// GIVEN I am using a daily planner to create a schedule
-// WHEN I open the planner
-// THEN the current day is displayed at the top of the calendar
-// WHEN I scroll down
-// THEN I am presented with timeblocks for standard business hours of 9am&ndash;5pm
-// WHEN I view the timeblocks for that day
-// THEN each timeblock is color coded to indicate whether it is in the past, present, or future
-// WHEN I click into a timeblock
-// THEN I can enter an event
-// WHEN I click the save button for that timeblock
-// THEN the text for that event is saved in local storage
-// WHEN I refresh the page
-// THEN the saved events persist
-
+//Get current date
 
 var currentDate = dayjs();
 $('.currentDay').text(currentDate.format('dddd, ' + 'DD-MM-YYYY.'));
 
 //Global Variables to call them and Create elements.
 
-var formContainer = $('.row');
-var eachContainer = $('.col-auto');
-var timeBooked = $('#time');
-var inputEvent = $('#inputEvent');
-var btnSave = $('#button');
-
-var labelHour = $('<label for="static">');
-labelHour.addClass('col-form-label');
-
-var hourForm = $('<input type="text">');
-hourForm.addClass('form-control');
-
-var btn = $('<button type="button">')
-btn.addClass('btn btn-success');
-
 //Index variable in 0 to iterate it
-var index = 0;
-
-formContainer.append(eachContainer);
-timeBooked.append(labelHour);
-inputEvent.append(hourForm);
-btnSave.append(btn);
-
-btn.text('Save');
+// var index = 0;
 
 //Array for all of the office hours that are going to be display in the screen.
 var officeHours = [
-    {time: 9},
-    {time: 10},
-    {time: 11},
-    {time: 12},
-    {time: 1},
-    {time: 2},
-    {time: 3},
-    {time: 4},
-    {time: 5},
+    {time: '09:00'},
+    {time: '10:00'},
+    {time: '11:00'},
+    {time: '12:00'},
+    {time: '01:00'},
+    {time: '02:00'},
+    {time: '03:00'},
+    {time: '04:00'},
+    {time: '05:00'},
 ];
 
 //The times will be grabbed from the array and displayed on the screen.
 var timeDisplayed = ()=>{
-    //Iterate each array index.
-    var eachTime = officeHours[index];
 
     //For each hour displayed, grab a time value and convert into a format.
    for(var i = 0; i <= officeHours.length; i++){
-        //Dayjs format
-
-        eachTime = dayjs(officeHours.time).format('hh:mm');
-        var timeIterator = index + 1;
+        //Iterate each array index.
+        var eachTime = officeHours[i];
         console.log(eachTime);
         //get current time
         var currentTime = dayjs().startOf('hour');
-        console.log(currentTime)
-        labelHour.text(eachTime); //It's supposed to iterate each time displayed.
+
+        var formContainer = $('.row'); //parent
+        var eachContainer = $('.col-auto');
+        var timeBooked = $('#time');
+        var inputEvent = $('#inputEvent');
+        var btnSave = $('#button');
+
+        var arrayElements = [
+            timeBooked,
+            inputEvent,
+            btnSave
+        ]
+
+        var hourForm = $('<input type="text">');
+        hourForm.addClass('form-control');
+
+        var btn = $('<button type="button">')
+        btn.addClass('btn btn-success');
+
+        
+        var labelHour = $('<label for="static">');
+        labelHour.addClass('col-form-label');
+        labelHour.attr('id', eachTime.time) //Add an ID
+
+        // console.log(currentTime)
+    
+        //Reassign the parent elements.
+        formContainer.append(eachContainer);
+        formContainer.append(arrayElements);
+
+        inputEvent.append(hourForm);
+        labelHour.text(eachTime.time); //It's supposed to iterate each time displayed.
+        timeBooked.append(labelHour);
+        btn.text('Save');
+        btnSave.append(btn);
+
 
 
         //Assign conditional for am or pm
@@ -95,9 +90,10 @@ timeDisplayed()
 
 //Reads each booked activity by the user
 function activity(){
-    var activity = localStorage.getItem('activity');
+    var inputValue = hourForm.val()
+    var activity = localStorage.getItem('input');
     if(activity){
-        activity = JSON.parse(activity);
+        activity = JSON.parse(inputValue);
     }else{
         activity = [];
     }
@@ -106,7 +102,6 @@ function activity(){
 
 //Each value is grabbed at localStorage
 var bookInput = ()=>{
-    var inputValue = hourForm.val()
     localStorage.setItem('input', JSON.stringify(inputValue));
 }
 
