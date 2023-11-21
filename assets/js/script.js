@@ -23,10 +23,7 @@ var officeHours = [
 
 //The times will be grabbed from the array and displayed on the screen.
 var timeDisplayed = ()=>{
-
-    //For each hour displayed, grab a time value and convert into a format.
-
-   for(var i = 0; i < officeHours.length; i++){
+    for(var i = 0; i < officeHours.length; i++){
         //Iterate each array index.
         var eachTime = officeHours[i];
         //get current time
@@ -38,42 +35,6 @@ var timeDisplayed = ()=>{
         console.log(eachTime);
         //get current time
         var currentTime = dayjs().startOf('hour');
-
-        var formContainer = $('.row'); //parent
-        var eachContainer = $('.col-auto');
-        var timeBooked = $('#time');
-        var inputEvent = $('#inputEvent');
-        var btnSave = $('#button');
-
-        var arrayElements = [
-            timeBooked,
-            inputEvent,
-            btnSave
-        ]
-
-        var hourForm = $('<input type="text">');
-        hourForm.addClass('form-control');
-
-        var btn = $('<button type="button">')
-        btn.addClass('btn btn-success');
-
-        
-        var labelHour = $('<label for="static">');
-        labelHour.addClass('col-form-label');
-        labelHour.attr('id', eachTime.time) //Add an ID
-
-        // console.log(currentTime)
-    
-        //Reassign the parent elements.
-        formContainer.append(eachContainer);
-        formContainer.append(arrayElements);
-
-        inputEvent.append(hourForm);
-        labelHour.text(eachTime.time); //It's supposed to iterate each time displayed.
-        timeBooked.append(labelHour);
-        btn.text('Save');
-        btnSave.append(btn);
-
 
         var container = $('.row').addClass('g-3');
         var formContainer = $('<div class="col-auto">'); //parent
@@ -109,9 +70,15 @@ var timeDisplayed = ()=>{
           }
         
    }
+    }
+
+}
+
+    //For each hour displayed, grab a time value and convert into a format.
+
 
    //Confirm if the hour for book something has already passed and assign different Styles to let the user know.
-}
+
 timeDisplayed()
 
 //Reads each booked activity by the user
