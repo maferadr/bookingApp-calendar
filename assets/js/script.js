@@ -18,73 +18,55 @@ var officeHours = [
     {time: '02:00'},
     {time: '03:00'},
     {time: '04:00'},
-    {time: '05:00'},
+    {time: '05:00', ampm: 'pm', timeCode: 17},
 ];
 
 //The times will be grabbed from the array and displayed on the screen.
 var timeDisplayed = ()=>{
 
     //For each hour displayed, grab a time value and convert into a format.
-   for(var i = 0; i <= officeHours.length; i++){
+   for(var i = 0; i < officeHours.length; i++){
         //Iterate each array index.
         var eachTime = officeHours[i];
-        console.log(eachTime);
         //get current time
-        var currentTime = dayjs().startOf('hour');
+        var currentTime = dayjs().hour();
 
-        var formContainer = $('.row'); //parent
-        var eachContainer = $('.col-auto');
-        var timeBooked = $('#time');
-        var inputEvent = $('#inputEvent');
-        var btnSave = $('#button');
+        var container = $('.row').addClass('g-3');
+        var formContainer = $('<div class="col-auto">'); //parent
 
-        var arrayElements = [
-            timeBooked,
-            inputEvent,
-            btnSave
-        ]
+        var labelHour = $('<label for="static">');
+        labelHour.addClass('col-form-label');
+        labelHour.attr('id', eachTime.timeCode) //Add an ID
 
         var hourForm = $('<input type="text">');
         hourForm.addClass('form-control');
+        hourForm.attr('id', eachTime.timeCode + 'hourForm');
 
         var btn = $('<button type="button">')
         btn.addClass('btn btn-success');
+        btn.on('click', handleBookedActivity);
 
-        
-        var labelHour = $('<label for="static">');
-        labelHour.addClass('col-form-label');
-        labelHour.attr('id', eachTime.time) //Add an ID
+        container.append(formContainer);
+        formContainer.append(labelHour, hourForm, btn)
 
-        // console.log(currentTime)
-    
-        //Reassign the parent elements.
-        formContainer.append(eachContainer);
-        formContainer.append(arrayElements);
-
-        inputEvent.append(hourForm);
         labelHour.text(eachTime.time); //It's supposed to iterate each time displayed.
-        timeBooked.append(labelHour);
         btn.text('Save');
-        btnSave.append(btn);
-
-
 
         //Assign conditional for am or pm
-        if(officeHours.length <= 3){
-            eachTime = dayjs().format('hh:mm[am]')
-        }else{
-            eachTime = dayjs().format('hh:mm[pm]')
-        }
+        console.log(currentTime)
+        labelHour.text(eachTime.time + eachTime.ampm)
+
+        if (labelHour.attr('id') < currentTime) {
+            hourForm.addClass('time-past');
+            hourForm.disabled = true;
+          } else if (labelHour.attr('id') >= currentTime) {
+            formContainer.addClass('allowedTime');
+            hourForm.disabled = false;
+          }
+        
    }
 
    //Confirm if the hour for book something has already passed and assign different Styles to let the user know.
-   if (eachTime.isBefore(currentTime)) {
-    hourForm.addClass('time-past');
-    hourForm.disabled = true;
-  } else if (eachTime.isSame(currentTime)) {
-    formContainer.addClass('allowedTime');
-    hourForm.disabled = false;
-  }
 }
 timeDisplayed()
 
@@ -109,8 +91,9 @@ function handleBookedActivity(e){
     e.preventDefault();
 
     //value is set up 
-    var time = labelHour.val();
-    var actBooked = hourForm.val();
+    console.log(e.target.parent());
+    var time = $('#17').val();
+    var actBooked = 'Hello world!';
 
     var newEvent = {
         time: time,
@@ -126,7 +109,6 @@ function handleBookedActivity(e){
     hourForm.addClass('submitted');
 }
 
-btn.on('submit', handleBookedActivity);
 
 // var baseTime = dayjs();
 // var endTime = 17;
