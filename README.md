@@ -21,6 +21,9 @@ THEN the text for that event is saved in local storage
 WHEN he refreshes the page
 THEN the saved events persist.
 
+## Deployment.
+https://maferadr.github.io/bookingApp-calendar/
+
 
 
 
